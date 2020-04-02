@@ -20,7 +20,9 @@ def partition(arr: list, start, end):
     j = start
     for i in range(start, end):
         if arr[i] < pivot:
-            swap(arr, i, j)
+            # swap(arr, i, j)
+            # python is so fucking awesome :)
+            arr[i], arr[j] = arr[j], arr[i]
             j += 1
     swap(arr, j, end)
     return j

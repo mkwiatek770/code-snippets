@@ -13,12 +13,8 @@ def bubble(unsorted: list) -> list:
     while True:
         swaps = 0
         for i in range(len(unsorted) - 1):
-            current = unsorted[i]
-            _next = unsorted[i + 1]
-            if current > _next:
-                temporary = current
-                unsorted[i] = _next
-                unsorted[i + 1] = temporary
+            if unsorted[i] > unsorted[i + 1]:
+                unsorted[i], unsorted[i + 1] = unsorted[i + 1], unsorted[i]
                 swaps += 1
         if swaps == 0:
             break
