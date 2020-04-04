@@ -13,15 +13,20 @@ def timer(func):
     return inner
 
 
+async def is_prime(num: int) -> bool:
+    for divisor in range(2, math.ceil(math.sqrt(num)) + 1):
+        if num % divisor == 0:
+            return False
+        if num % 1000000 == 0:
+            asyncio.sleep(0.00001)
+    return True
+
+
 async def find_primes_in_range(first, last):
     primes = []
     for num in range(first, last + 1):
-        is_prime = True
-        for divisor in range(2, math.ceil(math.sqrt(num)) + 1):
-            if num % divisor == 0:
-                is_prime = False
-                break
-        if is_prime:
+        prime = await is_prime(num)
+        if prime:
             primes.append(num)
     print(f"Found {len(primes)} primes in range from {first} to {last}")
     return primes
