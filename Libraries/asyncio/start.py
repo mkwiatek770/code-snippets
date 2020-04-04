@@ -26,4 +26,6 @@ def find_primes_in_range(first, last):
     return primes
 
 if __name__ == "__main__":
-    print(find_primes_in_range(2, 100000))
+    find_primes_in_range(200_000, 1_000_000)
+    find_primes_in_range(50_000, 100_000)
+    find_primes_in_range(50, 1000)
