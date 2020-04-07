@@ -1,7 +1,7 @@
 """
 Download multiple images from unsplash concurrently.
 """
-
+import os
 import asyncio
 import aiohttp
 import time
@@ -28,40 +28,46 @@ IMAGES = [
 
 
 def get_image_path(image_url: str) -> str:
+    """
+    Build image path by given image_url.
+    """
     filename = image_url.split("?")[0].split("unsplash.com/")[1] + ".jpg"
     absolute_path = os.path.abspath(os.path.join("images", filename))
     return absolute_path
 
 
 async def download_image(image_url: str, session: aiohttp.ClientSession) -> str:
-
+    """
+    Coroutine that downloads specific image.
+    """
     async with session.get(image_url) as response:
         path = get_image_path(image_url)
         with open(path, "wb") as image:
             await image.write(response.read())
 
 
-@asyncio.coroutine
-def download_images(images: list, session: aiohttp.ClientSession) -> None:
+def download_images(images: list) -> None:
     """
     Concurrently download multiple images.
     """
-    download_futures = [download_image(url, session) for url in images]
-    print("Results")
-    for download_future in asyncio.as_completed(download_futures):
-        result = yield from download_future
-        print("finished: ", result)
+    with aiohttp.ClientSession() as session:
+        download_futures = [download_image(url, session) for url in images]
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(asyncio.wait(download_futures))
 
-
-def main():
-    with closing(asyncio.get_event_loop()) as loop:
-        with aiohttp.ClientSession() as session:
-            result = loop.run_until_complete(download_images(IMAGES, session))
+        for download_future in asyncio.as_completed(download_futures):
+            result = yield from download_future
             print("finished: ", result)
+
+    # await asyncio.gather(count(), count())
+    # with closing(asyncio.get_event_loop()) as loop:
+    #     with aiohttp.ClientSession() as session:
+    #         result = loop.run_until_complete(download_images(IMAGES, session))
+    #         print("finished: ", result)
 
 
 if __name__ == "__main__":
     t0 = time.perf_counter()
-    main()
+    download_images(IMAGES)
     t1 = time.perf_counter()
     print(f"Elapsed time: {t1-t0}")
