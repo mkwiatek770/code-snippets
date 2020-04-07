@@ -4,6 +4,7 @@ Download multiple images from unsplash concurrently.
 import os
 import asyncio
 import aiohttp
+import requests
 import time
 
 
@@ -60,6 +61,12 @@ def download_images_synchronously(images: list) -> None:
     """
     Download images in normal way.
     """
+    for image_url in images:
+        response = requests.get(image_url)
+        if response.status_code == 200:
+            path = get_image_path(image_url)
+            with open(path, "wb") as img_file:
+                img_file.write(response.read())
 
 
 if __name__ == "__main__":
