@@ -5,7 +5,6 @@ import os
 import asyncio
 import aiohttp
 import time
-from contextlib import closing
 
 
 IMAGES = [
@@ -40,10 +39,10 @@ async def download_image(image_url: str, session: aiohttp.ClientSession) -> str:
     """
     Coroutine that downloads specific image.
     """
-    async with session.get(image_url) as response:
-        path = get_image_path(image_url)
-        with open(path, "wb") as image:
-            await image.write(response.read())
+    response = await session.get(image_url)
+    path = get_image_path(image_url)
+    with open(path, "wb") as image:
+        image.write(response.read())
 
 
 def download_images(images: list) -> None:
