@@ -66,11 +66,11 @@ def download_images_synchronously(images: list) -> None:
         if response.status_code == 200:
             path = get_image_path(image_url)
             with open(path, "wb") as img_file:
-                img_file.write(response.read())
+                img_file.write(response.content)
 
 
 if __name__ == "__main__":
     t0 = time.perf_counter()
-    download_images(IMAGES)
+    download_images_synchronously(IMAGES)
     t1 = time.perf_counter()
-    print(f"Elapsed time: {t1-t0}")
+    print(f"Elapsed time: {t1-t0} seconds")
