@@ -35,34 +35,31 @@ def get_image_path(image_url: str) -> str:
     return absolute_path
 
 
-async def download_image(image_url: str, session: aiohttp.ClientSession) -> str:
+# async def download_image(image_url: str, session: aiohttp.ClientSession) -> str:
+async def download_image(image_url: str) -> str:
     """
     Coroutine that downloads specific image.
     """
-    response = await session.get(image_url)
-    path = get_image_path(image_url)
-    with open(path, "wb") as image:
-        image.write(response.read())
+    async with aiohttp.ClientSession() as session:
+        async with session.get(image_url) as response:
+            path = get_image_path(image_url)
+            with open(path, "wb") as image:
+                image.write(await response.read())
 
 
 def download_images(images: list) -> None:
     """
     Concurrently download multiple images.
     """
-    with aiohttp.ClientSession() as session:
-        download_futures = [download_image(url, session) for url in images]
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(asyncio.wait(download_futures))
+    download_futures = [download_image(url) for url in images]
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.wait(download_futures))
 
-        for download_future in asyncio.as_completed(download_futures):
-            result = yield from download_future
-            print("finished: ", result)
 
-    # await asyncio.gather(count(), count())
-    # with closing(asyncio.get_event_loop()) as loop:
-    #     with aiohttp.ClientSession() as session:
-    #         result = loop.run_until_complete(download_images(IMAGES, session))
-    #         print("finished: ", result)
+def download_images_synchronously(images: list) -> None:
+    """
+    Download images in normal way.
+    """
 
 
 if __name__ == "__main__":
