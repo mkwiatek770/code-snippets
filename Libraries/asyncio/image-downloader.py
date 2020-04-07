@@ -48,7 +48,7 @@ async def download_image(image_url: str) -> str:
                 image.write(await response.read())
 
 
-def download_images(images: list) -> None:
+def download_images_async(images: list) -> None:
     """
     Concurrently download multiple images.
     """
@@ -71,6 +71,6 @@ def download_images_synchronously(images: list) -> None:
 
 if __name__ == "__main__":
     t0 = time.perf_counter()
-    download_images_synchronously(IMAGES)
+    download_images_async(IMAGES)
     t1 = time.perf_counter()
     print(f"Elapsed time: {t1-t0} seconds")
