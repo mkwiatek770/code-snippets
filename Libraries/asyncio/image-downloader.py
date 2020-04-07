@@ -36,7 +36,6 @@ def get_image_path(image_url: str) -> str:
     return absolute_path
 
 
-# async def download_image(image_url: str, session: aiohttp.ClientSession) -> str:
 async def download_image(image_url: str) -> str:
     """
     Coroutine that downloads specific image.
