@@ -1,12 +1,10 @@
 """
 Download multiple images from unsplash concurrently.
 """
-import requests
-import os
+
 import asyncio
 import aiohttp
 import time
-import concurrent.futures
 from contextlib import closing
 
 
@@ -43,7 +41,6 @@ async def download_image(image_url: str, session: aiohttp.ClientSession) -> str:
             await image.write(response.read())
 
 
-
 @asyncio.coroutine
 def download_images(images: list, session: aiohttp.ClientSession) -> None:
     """
@@ -63,4 +60,8 @@ def main():
             print("finished: ", result)
 
 
-download_images(IMAGES)
+if __name__ == "__main__":
+    t0 = time.perf_counter()
+    main()
+    t1 = time.perf_counter()
+    print(f"Elapsed time: {t1-t0}")
