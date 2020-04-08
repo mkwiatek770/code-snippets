@@ -14,7 +14,7 @@ def profile(func):
         stream = io.StringIO()
         ps = pstats.Stats(profiler, stream=stream).sort_stats('cumulative')
         ps.print_stats()
-        print(s.getvalue())
+        print(stream.getvalue())
         return response
     return inner
 
