@@ -13,8 +13,6 @@ def insertion(unsorted: list) -> list:
     list_len = len(unsorted)
     for i in range(1, list_len):
         for j in range(i):
-            if i == j:
-                continue
             if unsorted[i] < unsorted[j]:
                 val = unsorted.pop(i)
                 unsorted.insert(j, val)
