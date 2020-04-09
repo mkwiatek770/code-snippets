@@ -33,8 +33,13 @@ class Node:
                 return False
             else:
                 return self.right.contains(value)
-
-
+    
+    def print_in_order(self) -> None:
+        if self.left is not None:
+            self.left.print_in_order()
+        print(f" {self.data} ", end="")
+        if self.right is not None:
+            self.right.print_in_order()
 
 class BinaryTree:
 
@@ -55,7 +60,12 @@ class BinaryTree:
             return False
         return self.head.contains(value)
 
+    def print_in_order(self) -> None:
+        if self.head is None:
+            print("Tree has no elements.")
 
+        self.head.print_in_order()
+        print()
 
 
 
@@ -72,4 +82,4 @@ print(tree.head.left.right.data)
 print(tree.has_value(4))
 print(tree.has_value(8))
 print(tree.has_value(15))
-
+tree.print_in_order()
