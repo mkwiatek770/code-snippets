@@ -19,6 +19,21 @@ class Node:
                 self.right = Node(value)
             else:
                 self.right.insert(value)
+    
+    def contains(self, value: int) -> bool:
+        if self.data == value:
+            return True
+        elif value < self.data:
+            if self.left is None:
+                return False
+            else:
+                return self.left.contains(value)
+        else:
+            if self.right is None:
+                return False
+            else:
+                return self.right.contains(value)
+
 
 
 class Tree:
@@ -35,6 +50,11 @@ class Tree:
         else:
             self.head.insert(value)
             
+    def has_value(self, value) -> bool:
+        if self.head is None:
+            return False
+        return self.head.contains(value)
+
 
 
 
@@ -49,5 +69,7 @@ tree.create_node(8)
 print(tree.head.left.data)
 print(tree.head.right.data)
 print(tree.head.left.right.data)
-
+print(tree.has_value(4))
+print(tree.has_value(8))
+print(tree.has_value(15))
 
