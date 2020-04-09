@@ -36,7 +36,7 @@ class Node:
 
 
 
-class Tree:
+class BinaryTree:
 
     def __init__(self, head=None):
         if head:
@@ -60,7 +60,7 @@ class Tree:
 
 
 n1 = Node(10)
-tree = Tree(n1)
+tree = BinaryTree(n1)
 tree.create_node(5)
 tree.create_node(15)
 tree.create_node(8)
