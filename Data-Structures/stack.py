@@ -12,37 +12,37 @@ class Node:
 class Stack:
 
     def __init__(self):
-        self.head = None
+        self.top = None
 
     def is_empty(self):
-        return self.head is None
+        return self.top is None
     
     def push(self, data):
         node = Node(data)
-        node.next = self.head
-        self.head = node
+        node.next = self.top
+        self.top = node
 
     def pop(self):
-        if self.head is None:
+        if self.top is None:
             return False
 
-        value = self.head.data
-        self.head = self.head.next
+        value = self.top.data
+        self.top = self.top.next
         return value
 
     def peek(self):
-        if self.head is None:
+        if self.top is None:
             print("There are no elements!")
             return
-        print(self.head.data)
+        print(self.top.data)
 
 
 s = Stack()
 s.push(6)
 s.push(8)
-assert s.head.data == 8
-assert s.head.next.data == 6
+assert s.top.data == 8
+assert s.top.next.data == 6
 assert s.pop() == 8
-assert s.head.data == 6
-assert s.head.next is None
+assert s.top.data == 6
+assert s.top.next is None
     
