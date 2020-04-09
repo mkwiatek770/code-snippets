@@ -4,6 +4,15 @@ Max heap - the highest element is on top
 Min heap - the lowest element is on top
 
  A heap is used as a queue where the min (or max if max heap) is always accessed in O(1) time.  If the min (which is always at index 0 is popped off, then the next smallest takes its place.     Remember its stored linearly yet indexed logarithmically.  Therefore its a "priority" queue. 
+
+Insert O(logn)
+Get min/max (depends what kind of Heap) in O(1)
+
+Indexes operations:
+parent index = (i-1)/2
+left child = 2*i + 1
+right child = 2*i + 2
+
 """
 
 
