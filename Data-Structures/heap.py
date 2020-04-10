@@ -18,8 +18,9 @@ right child = 2*i + 2
 
 class MinIntHeap:
 
-    capacity: int = 10
-    items: list = []
+    def __init__(self):
+        self.capacity: int = 10
+        self.items: list = []
 
     def _get_left_child_index(self, parent_index: int) -> int:
         return 2 * parent_index + 1
