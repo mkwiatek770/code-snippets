@@ -14,6 +14,7 @@ left child = 2*i + 1
 right child = 2*i + 2
 
 """
+from typing import Union
 
 
 class MinIntHeap:
@@ -92,6 +93,31 @@ class MinIntHeap:
             else:
                 break
             index = smaller_child_index
+
+
+class MaxIntHeap:
+    """Implementation of max heap."""
+
+    def __init__(self):
+        self.items = []
+
+    def max(self) -> Union[int, None]:
+        """Get maximum value of heap."""
+        pass
+
+    def add(self, value: int) -> None:
+        """Append element into heap."""
+        pass
+
+    def pop(self, value: int) -> bool:
+        """Pop element from heap."""
+        pass
+
+    def _heapify_up(self):
+        pass
+
+    def _heapify_down(self):
+        pass
 
 
 h = MinIntHeap()
