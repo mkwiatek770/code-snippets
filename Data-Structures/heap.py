@@ -95,9 +95,34 @@ class BinaryHeap(ABC):
             return None
 
 
-class MinIntHeap:
+class MinIntHeap(BinaryHeap):
+    """Implementation of min heap."""
 
-    pass
+    @property
+    def min(self) -> Union[int, None]:
+        if len(self.items) >= 1:
+            return self.items[0]
+        print("Heap is empty")
+
+    def insert(self, value: int) -> None:
+        self.items.append(value)
+        self._heapify_up()
+
+    def delete(self) -> int:
+        pass
+
+    def _heapify_up(self) -> None:
+        index = len(self.items) - 1
+        while self._has_parent(index):
+            value = self.items[index]
+            parent_index = self._get_parent_index(index)
+            if value >= self.items[parent_index]:
+                break
+            self.swap(index, parent_index)
+            index = parent_index
+
+    def _heapify_down(self) -> None:
+        pass
 
 
 class MaxIntHeap(BinaryHeap):
@@ -181,3 +206,4 @@ def test_heap_max():
 
 if __name__ == "__main__":
     test_heap_max()
+    test_heap_min()
