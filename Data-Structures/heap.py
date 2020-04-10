@@ -190,10 +190,10 @@ class MaxIntHeap(BinaryHeap):
         index = len(self.items) - 1
         while self._has_parent(index):
             value = self.items[index]
-            parent_index = self._get_parent(index)
+            parent_index = self._get_parent_index(index)
             if value <= self.items[parent_index]:
                 break
-            self.swap(value, parent_index)
+            self.swap(index, parent_index)
 
     def _heapify_down(self):
         pass
@@ -207,7 +207,12 @@ def test_heap_max():
     assert heap.max == 16
     heap.push(17)
     assert heap.max == 17
-    assert heap.items == [17, 16, 5]
+    assert heap.items == [17, 5, 16]
+    heap.push(14)
+    assert heap.items == [17, 14, 16, 5]
+    heap.push(17)
+    print(heap.items)
+    assert heap.items == [17, 17, 16, 5, 14]
 
 
 if __name__ == "__main__":
