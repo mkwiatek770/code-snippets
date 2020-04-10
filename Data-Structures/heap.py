@@ -50,6 +50,12 @@ class BinaryHeap(ABC):
             return False
         return True
 
+    def _has_left_child(self, index: int) -> bool:
+        return self._get_left_child_index(index) is not None
+
+    def _has_right_child(self, index: int) -> bool:
+        return self._get_right_child_index(index) is not None
+
     def _get_parent_index(self, index: int) -> int:
         if index == 0:
             return None
@@ -200,7 +206,6 @@ class MaxIntHeap(BinaryHeap):
     def _heapify_down(self):
         index = 0
         while self._has_left_child(index):
-            value = self.items[index]
             bigger_child_index = self._get_left_child_index(index)
             if self._has_right_child(index) and self._get_right_child(index) > self._get_left_child(index):
                 bigger_child_index = self._get_right_child_index(index)
