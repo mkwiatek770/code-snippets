@@ -14,7 +14,36 @@ left child = 2*i + 1
 right child = 2*i + 2
 
 """
+from abc import ABC, abstractmethod
 from typing import Union
+
+
+class BinaryHeap(ABC):
+
+    def __init__(self):
+        self.items = []
+
+    @abstractmethod
+    def push(self, value: int) -> None:
+        """Add element into heap."""
+        pass
+
+    @abstractmethod
+    def pop(self, value: int) -> bool:
+        """Push value from heap."""
+        pass
+
+    def _get_parent(self, index) -> Union[int, None]:
+        """Get parent of child with given index."""
+        pass
+
+    def _get_right_child(self, index) -> Union[int, None]:
+        """Get right child of parent by given index."""
+        pass
+
+    def _get_left_child(self, index) -> Union[int, None]:
+        """Get left child of parent by given index."""
+        pass
 
 
 class MinIntHeap:
