@@ -193,18 +193,16 @@ class MaxIntHeap(BinaryHeap):
         pass
 
 
-def test_heap_max
+def test_heap_max():
+    heap = MaxIntHeap()
+    heap.push(16)
+    assert heap.max == 16
+    heap.push(5)
+    assert heap.max == 16
+    heap.push(17)
+    assert heap.max == 17
+    assert heap.items == [17, 16, 5]
 
 
-h = MaxIntHeap()
-h.push(6)
-assert h.max() == 6
-
-# h = MinIntHeap()
-# h.add(15)
-# h.add(6)
-# h.add(7)
-# print(h.items)
-# assert h.items[0] == 6
-# assert h.items[1] == 7
-# assert h.poll() == 6
+if __name__ == "__main__":
+    test_heap_max()
