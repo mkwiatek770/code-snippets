@@ -24,13 +24,13 @@ class BinaryHeap(ABC):
         self.items = []
 
     @abstractmethod
-    def push(self, value: int) -> None:
+    def insert(self, value: int) -> None:
         """Add element into heap."""
         pass
 
     @abstractmethod
-    def pop(self) -> int:
-        """Push head from heap."""
+    def delete(self) -> int:
+        """Delete head from heap."""
         pass
 
     @abstractmethod
@@ -177,13 +177,11 @@ class MaxIntHeap(BinaryHeap):
             return self.items[0]
         print("Heap is empty")
 
-    def push(self, value: int) -> None:
-        """Append element into heap."""
+    def insert(self, value: int) -> None:
         self.items.append(value)
         self._heapify_up()
 
-    def pop(self) -> int:
-        """Pop head from heap."""
+    def delete(self) -> int:
         self.swap(0, len(self.items) - 1)
         value = self.items.pop(len(self.items) - 1)
         self._heapify_down()
@@ -204,16 +202,16 @@ class MaxIntHeap(BinaryHeap):
 
 def test_heap_max():
     heap = MaxIntHeap()
-    heap.push(16)
+    heap.insert(16)
     assert heap.max == 16
-    heap.push(5)
+    heap.insert(5)
     assert heap.max == 16
-    heap.push(17)
+    heap.insert(17)
     assert heap.max == 17
     assert heap.items == [17, 5, 16]
-    heap.push(14)
+    heap.insert(14)
     assert heap.items == [17, 14, 16, 5]
-    heap.push(17)
+    heap.insert(17)
     print(heap.items)
     assert heap.items == [17, 17, 16, 5, 14]
 
