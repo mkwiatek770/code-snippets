@@ -109,7 +109,10 @@ class MinIntHeap(BinaryHeap):
         self._heapify_up()
 
     def delete(self) -> int:
-        pass
+        self.swap(0, len(self.items) - 1)
+        value = self.items.pop(len(self.items) - 1)
+        self._heapify_down()
+        return value
 
     def _heapify_up(self) -> None:
         index = len(self.items) - 1
@@ -122,7 +125,16 @@ class MinIntHeap(BinaryHeap):
             index = parent_index
 
     def _heapify_down(self) -> None:
-        pass
+        index = 0
+        while self._has_left_child(index):
+            smaller_child_index = self._get_left_child_index(index)
+            if self._has_right_child(index) and self._get_right_child(index) < self._get_left_child(index):
+                smaller_child_index = self._get_right_child_index(index)
+
+            if self.items[index] <= self.items[smaller_child_index]:
+                break
+            self.swap(index, smaller_child_index)
+            index = smaller_child_index
 
 
 class MaxIntHeap(BinaryHeap):
