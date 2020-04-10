@@ -41,24 +41,46 @@ class BinaryHeap(ABC):
     def _heapify_down(self):
         pass
 
-    def _get_parent(self, index) -> Union[int, None]:
-        """Get parent of child with given index."""
+    def swap(self, i: int, j: int) -> None:
+        """Swap elements in heap."""
+        self.items[i], self.items[j] = self.items[j], self.items[i]
+
+    def _get_parent_index(self, index):
         if index == 0:
             return None
-        return self.items[(index-1) // 2]
+        return (index-1) // 2
+
+    def _get_left_child_index(self, index):
+        left_index = 2*index + 1
+        if left_index >= len(self.items):
+            return None
+        return left_index
+
+    def _get_right_child_index(self, index):
+        right_index = 2*index + 2
+        if right_index >= len(self.items):
+            return None
+        return right_index
+
+    def _get_parent(self, index) -> Union[int, None]:
+        """Get parent of child with given index."""
+        try:
+            return self.items[self._get_parent_index(index)]
+        except TypeError:
+            return None
 
     def _get_left_child(self, index) -> Union[int, None]:
         """Get left child of parent by given index."""
         try:
-            return self.items[2*index + 2]
-        except IndexError:
+            return self.items[self._get_left_child_index(index)]
+        except TypeError:
             return None
 
     def _get_right_child(self, index) -> Union[int, None]:
         """Get right child of parent by given index."""
         try:
-            return self.items[2*index + 2]
-        except IndexError:
+            return self.items[self._get_right_child_index(index)]
+        except TypeError:
             return None
 
 
@@ -151,14 +173,21 @@ class MaxIntHeap(BinaryHeap):
 
     def push(self, value: int) -> None:
         """Append element into heap."""
-        pass
+        self.items.append(value)
+        self._heapify_up()
 
     def pop(self, value: int) -> bool:
         """Pop element from heap."""
         pass
 
     def _heapify_up(self):
-        pass
+        index = len(self.items) - 1
+        while True:
+            value = self.items[index]
+            parent_index = self._get_parent(index)
+            if parent_index is None or value <= self.items[parent_index]:
+                break
+            self.swap(value, parent_index)
 
     def _heapify_down(self):
         pass
