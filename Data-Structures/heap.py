@@ -132,11 +132,8 @@ class MinIntHeap:
             index = smaller_child_index
 
 
-class MaxIntHeap:
+class MaxIntHeap(BinaryHeap):
     """Implementation of max heap."""
-
-    def __init__(self):
-        self.items = []
 
     def max(self) -> Union[int, None]:
         """Get maximum value of heap."""
@@ -144,7 +141,7 @@ class MaxIntHeap:
             return self.items[0]
         print("Heap is empty")
 
-    def add(self, value: int) -> None:
+    def push(self, value: int) -> None:
         """Append element into heap."""
         pass
 
@@ -159,11 +156,15 @@ class MaxIntHeap:
         pass
 
 
-h = MinIntHeap()
-h.add(15)
-h.add(6)
-h.add(7)
-print(h.items)
-assert h.items[0] == 6
-assert h.items[1] == 7
-assert h.poll() == 6
+h = MaxIntHeap()
+h.push(6)
+assert h.max() == 6
+
+# h = MinIntHeap()
+# h.add(15)
+# h.add(6)
+# h.add(7)
+# print(h.items)
+# assert h.items[0] == 6
+# assert h.items[1] == 7
+# assert h.poll() == 6
