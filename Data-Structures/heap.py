@@ -43,15 +43,23 @@ class BinaryHeap(ABC):
 
     def _get_parent(self, index) -> Union[int, None]:
         """Get parent of child with given index."""
-        pass
-
-    def _get_right_child(self, index) -> Union[int, None]:
-        """Get right child of parent by given index."""
-        pass
+        if index == 0:
+            return None
+        return self.items[(index-1) // 2]
 
     def _get_left_child(self, index) -> Union[int, None]:
         """Get left child of parent by given index."""
-        pass
+        try:
+            return self.items[2*index + 2]
+        except IndexError:
+            return None
+
+    def _get_right_child(self, index) -> Union[int, None]:
+        """Get right child of parent by given index."""
+        try:
+            return self.items[2*index + 2]
+        except IndexError:
+            return None
 
 
 class MinIntHeap:
