@@ -45,18 +45,23 @@ class BinaryHeap(ABC):
         """Swap elements in heap."""
         self.items[i], self.items[j] = self.items[j], self.items[i]
 
-    def _get_parent_index(self, index):
+    def _has_parent(self, index: int) -> bool:
+        if index == 0:
+            return False
+        return True
+
+    def _get_parent_index(self, index: int) -> int:
         if index == 0:
             return None
         return (index-1) // 2
 
-    def _get_left_child_index(self, index):
+    def _get_left_child_index(self, index: int) -> int:
         left_index = 2*index + 1
         if left_index >= len(self.items):
             return None
         return left_index
 
-    def _get_right_child_index(self, index):
+    def _get_right_child_index(self, index: int) -> int:
         right_index = 2*index + 2
         if right_index >= len(self.items):
             return None
@@ -165,6 +170,7 @@ class MinIntHeap:
 class MaxIntHeap(BinaryHeap):
     """Implementation of max heap."""
 
+    @property
     def max(self) -> Union[int, None]:
         """Get maximum value of heap."""
         if len(self.items) >= 1:
@@ -182,7 +188,7 @@ class MaxIntHeap(BinaryHeap):
 
     def _heapify_up(self):
         index = len(self.items) - 1
-        while _has_parent(index):
+        while self._has_parent(index):
             value = self.items[index]
             parent_index = self._get_parent(index)
             if value <= self.items[parent_index]:
