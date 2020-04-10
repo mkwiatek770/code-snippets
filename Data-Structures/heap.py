@@ -103,7 +103,9 @@ class MaxIntHeap:
 
     def max(self) -> Union[int, None]:
         """Get maximum value of heap."""
-        pass
+        if len(self.items) >= 1:
+            return self.items[0]
+        print("Heap is empty")
 
     def add(self, value: int) -> None:
         """Append element into heap."""
