@@ -29,8 +29,8 @@ class BinaryHeap(ABC):
         pass
 
     @abstractmethod
-    def pop(self, value: int) -> bool:
-        """Push value from heap."""
+    def pop(self) -> int:
+        """Push head from heap."""
         pass
 
     @abstractmethod
@@ -182,9 +182,12 @@ class MaxIntHeap(BinaryHeap):
         self.items.append(value)
         self._heapify_up()
 
-    def pop(self, value: int) -> bool:
-        """Pop element from heap."""
-        pass
+    def pop(self) -> int:
+        """Pop head from heap."""
+        self.swap(0, len(self.items) - 1)
+        value = self.items.pop(len(self.items) - 1)
+        self._heapify_down()
+        return value
 
     def _heapify_up(self):
         index = len(self.items) - 1
