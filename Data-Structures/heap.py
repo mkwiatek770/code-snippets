@@ -33,6 +33,14 @@ class BinaryHeap(ABC):
         """Push value from heap."""
         pass
 
+    @abstractmethod
+    def _heapify_up(self):
+        pass
+
+    @abstractmethod
+    def _heapify_down(self):
+        pass
+
     def _get_parent(self, index) -> Union[int, None]:
         """Get parent of child with given index."""
         pass
