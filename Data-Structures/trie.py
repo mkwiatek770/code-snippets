@@ -28,6 +28,19 @@ class Trie:
             return True
         return False
 
+    def delete(self, word):
+        cur = self.head
+        
+        if not self.search(word):
+            return False
+
+        for c in word:
+            if len(cur.keys()) == 1:
+                del cur
+                return True
+            cur = cur[c]
+        return True
+
 
 def tests():
     t = Trie()
@@ -35,6 +48,9 @@ def tests():
     t.add("hi")
     assert t.search("hello") == True
     assert t.search("he") == False
+    assert t.delete("hi") == True
+    assert t.search("hello") == True
+
 
 if __name__ == "__main__":
     tests()
