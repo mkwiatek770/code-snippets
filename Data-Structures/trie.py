@@ -7,7 +7,7 @@ Sample use cases:
 class Trie:
     
     def __init__(self):
-        head = {}
+        self.head = {}
 
     def add(self, word):
         cur = self.head
@@ -27,3 +27,15 @@ class Trie:
         if "*" in cur:
             return True
         return False
+
+
+def tests():
+    t = Trie()
+    t.add("hello")
+    t.add("hi")
+    assert t.search("hello") == True
+    assert t.search("he") == False
+
+if __name__ == "__main__":
+    tests()
+
