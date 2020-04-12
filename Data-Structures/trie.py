@@ -1,5 +1,7 @@
 """
-Add doc...
+Sample use cases:
+- word search engine
+- word syntax checher/tips, where word is getting underlined if its not found in db
 """
 
 class Node:
