@@ -6,9 +6,11 @@ from tqdm import tqdm
 
 dirs = ["biorxiv_medrxiv", "comm_use_subset", "noncomm_use_subset"]
 articles = []
+counter = 0
 
 path = f"kaggle_data/{dirs[0]}/{dirs[0]}/pdf_json"
 for file_ in tqdm(os.listdir(path)):
+    counter += 1
     with open(f"{path}/{file_}") as f:
         data = json.load(f)
 
@@ -26,7 +28,5 @@ for file_ in tqdm(os.listdir(path)):
         articles.append((paper_id, title, full_abstract, full_text))
         
 
+df = pd.DataFrame(articles, columns=['Paper ID', 'Title', 'Abstract', 'Text'])
 
-print(sys.getsizeof(articles))
-print(articles[5])
-print(len(articles))
