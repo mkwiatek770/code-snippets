@@ -5,7 +5,6 @@ divide collection into parts and then merge then
 Its efficient, but downside is than it requires extra space
 """
 
-
 def merge(arr1: list, arr2: list) -> list:
     new_arr = []
     # Iterate while at least one array is not empty
@@ -22,7 +21,7 @@ def merge(arr1: list, arr2: list) -> list:
     return new_arr
 
 
-def mergesort(arr: list):
+def mergesort(arr: list) -> list:
     if len(arr) == 1:
         return arr
 
@@ -36,7 +35,5 @@ def mergesort(arr: list):
 
 
 print(mergesort([4, -5, 2, 123, 11]))
-print(mergesort([1, 2, 3, 4]))
-
-#merge([1, 2], [4, 5])
+print(mergesort([1, 111, 3, -5]))
 
