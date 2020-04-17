@@ -26,8 +26,11 @@ def mergesort(arr: list):
 
     first_half = arr[:len(arr) // 2]
     second_half = arr[len(arr) // 2:]
+    
+    res1 = mergesort(first_half)
+    res2 = mergesort(second_half)
+    return res1, res2
 
-    return first_half, second_half
 
 print(mergesort([1, 2, 3, 4, 5]))
 print(mergesort([1, 2, 3, 4]))
