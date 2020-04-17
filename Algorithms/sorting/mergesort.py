@@ -1,3 +1,10 @@
+"""
+Merge sort
+divide collection into parts and then merge then
+
+Its efficient, but downside is than it requires extra space
+"""
+
 
 def merge(arr1: list, arr2: list) -> list:
     new_arr = []
@@ -12,5 +19,18 @@ def merge(arr1: list, arr2: list) -> list:
     return new_arr
 
 
-merge([1, 2], [4, 5])
+
+def mergesort(arr: list):
+    if len(arr) == 1:
+        return arr
+
+    first_half = arr[:len(arr) // 2]
+    second_half = arr[len(arr) // 2:]
+
+    return first_half, second_half
+
+print(mergesort([1, 2, 3, 4, 5]))
+print(mergesort([1, 2, 3, 4]))
+
+#merge([1, 2], [4, 5])
 
