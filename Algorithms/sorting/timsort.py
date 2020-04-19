@@ -73,7 +73,7 @@ def timsort(arr):
     sorted_array = []
     for run in sorted_runs:
         sorted_array = merge(sorted_array, run)
-
+        
     return sorted_array
 
 @timer
@@ -83,9 +83,14 @@ def original(arr):
 if __name__ == "__main__":
     timsort([123, -11, 22, 1, 2, 62]) == [-11, 1, 2, 22, 62, 123]
     
-    hudge_array = [random.randint(1, 100000) for _ in range(10000)]
+    hudge_array = [random.randint(1, 100000) for _ in range(10)]
     
     res1 = original(hudge_array)
     res2 = timsort(hudge_array)
-    assert res1 == res2
+    
+    print(res1, res2)
+    for index, el1, el2 in zip(range(10000), res1, res2):
+        if el1 != el2:
+            print(f"elements not equal on {index}th position {el1} != {el2}")
+            break
 
