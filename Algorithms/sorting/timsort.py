@@ -11,6 +11,7 @@ Best Case: O(n)
 Average: O(nlogn)
 Worst Case: O(nlogn)
 """
+import time
 from mergesort import merge
 from insertion import insertion
 
@@ -31,6 +32,16 @@ def binary_search(arr: list, target):
     return False
 
 
+def timer(func):
+    def inner(*args, **kwargs):
+        t0 = time.perf_counter()
+        val = func(*args, **kwargs)
+        t1 = time.perf_counter()
+        print(f"Elapsed time: {t1-t0}")
+        return val
+    return inner
+
+@timer
 def timsort(arr):
     runs, sorted_runs = [], []
     length = len(arr)
