@@ -1,3 +1,10 @@
+"""
+Only works on sorted collection
+
+Best Case: O(1)
+Average Case: O(logn)
+Worst Case: O(logn)
+"""
 
 
 def binary_search(arr: list, target):
