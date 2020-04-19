@@ -33,7 +33,7 @@ def mergesort(arr: list) -> list:
     
     return merge(left, right)
 
-
-print(mergesort([4, -5, 2, 123, 11]))
-print(mergesort([1, 111, 3, -5]))
+if __name__ == "__main__":
+    print(mergesort([4, -5, 2, 123, 11]))
+    print(mergesort([1, 111, 3, -5]))
 
