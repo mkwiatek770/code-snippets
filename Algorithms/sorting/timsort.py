@@ -12,6 +12,7 @@ Average: O(nlogn)
 Worst Case: O(nlogn)
 """
 import time
+import random
 from mergesort import merge
 from insertion import insertion
 
@@ -37,7 +38,7 @@ def timer(func):
         t0 = time.perf_counter()
         val = func(*args, **kwargs)
         t1 = time.perf_counter()
-        print(f"Elapsed time: {t1-t0}")
+        print(f"Elapsed time to execute {func.__name__} function took: {t1-t0} seconds")
         return val
     return inner
 
@@ -75,6 +76,16 @@ def timsort(arr):
 
     return sorted_array
 
+@timer
+def original(arr):
+    return sorted(arr)
+
 if __name__ == "__main__":
     timsort([123, -11, 22, 1, 2, 62]) == [-11, 1, 2, 22, 62, 123]
+    
+    hudge_array = [random.randint(1, 100000) for _ in range(10000)]
+    
+    res1 = original(hudge_array)
+    res2 = timsort(hudge_array)
+    assert res1 == res2
 
