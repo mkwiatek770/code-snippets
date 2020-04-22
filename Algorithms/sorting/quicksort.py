@@ -10,10 +10,7 @@ Worst Case: O(n^2)
 
 
 def swap(l: list, index1, index2):
-    temp = l[index1]
-    l[index1] = l[index2]
-    l[index2] = temp
-
+    l[index1], l[index2] = l[index2], l[index1]
 
 def partition(arr: list, start, end):
     pivot = arr[end]
