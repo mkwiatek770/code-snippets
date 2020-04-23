@@ -11,6 +11,12 @@ from typing import List
 
 
 def max_subarray(arr: List[int]) -> int:
+    """
+    Kadane's algoritm
+    Dynamic programming approach
+    O(n)
+    Explaination: https://www.youtube.com/watch?v=2MmGzdiKR9Y
+    """
     max_value = nums[0]
     max_so_far = nums[0]
     for num in nums[1:]:
