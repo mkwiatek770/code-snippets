@@ -51,4 +51,6 @@ assert q.tail.data == 6
 q.remove()
 assert q.head.data == 6
 assert q.tail.data == 6
+q.remove()
+assert q.head == None
 
