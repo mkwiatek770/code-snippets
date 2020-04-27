@@ -99,6 +99,15 @@ def dfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], Li
             frontier.push(Node(child, current_node))
     return None # went through everything and never found goal
 
+
+def node_to_path(node: Node[T]) -> List[T]:
+    path: List[T] = [node.state]
+    while node.parent:
+        node = node.parent
+        path.append(node.state)
+    path.reverse()
+    return path
+
 if __name__ == "__main__":
     print(linear_contains([1, 5, 15, 15, 15, 15, 20], 5)) # True
     print(binary_contains(["a", "d", "e", "f", "z"], "f")) # True
