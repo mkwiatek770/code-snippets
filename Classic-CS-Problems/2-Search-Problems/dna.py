@@ -23,8 +23,29 @@ def linear_contains(gene: Gene, codon: Codon) -> bool:
             return True
     return False
 
+# binary search
+def binary_contains(gene: Gene, codon: Codon) -> bool:
+    low: int = 0
+    high: int = len(gene) - 1 
+    while low <= high:
+        mid = (low + high) // 2
+        if gene[mid] > codon:
+            high = mid - 1
+        elif gene[mid] < codon:
+            low = mid + 1
+        else:
+            return True
+    return False
+
+
 
 if __name__ == "__main__":
     gene_str: str = "ACGTGGCTCTCTAACGTACGTACGTACGGGGTTTATATATACCCTAGGACTCCCTTT"
     my_gene: Gene = string_to_gene(gene_str)
     print(my_gene)
+
+    my_sorted_gene: Gene = sorted(my_gene)
+    acg: Codon = (Nucleotide.A, Nucleotide.C, Nucleotide.G)
+    gat: Codon = (Nucleotide.G, Nucleotide.A, Nucleotide.T)
+    assert binary_contains(my_sorted_gene, acg) == True
+    assert binary_contains(my_sorted_gene, gat) == False
