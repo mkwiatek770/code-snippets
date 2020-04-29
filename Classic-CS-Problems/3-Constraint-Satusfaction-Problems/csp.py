@@ -13,3 +13,23 @@ class Constraint(Generic[V, D], ABC):
     @abstractmethod
     def statisfied(self, assignment: Dict[V, D]) -> bool:
         pass
+
+
+class CSP(Generic[V, D]):
+
+    def __init__(self, variables: List[V], domains: Dict[V, List[D]]) -> None:
+        self.variables: List[V] = variables
+        self.domains: Dict[V, List[D]] = domains
+        self.constraints: Dict[V, List[Constraint[V, D]]] = {}
+        for variable in self.variables:
+            self.constraints[variable] = []
+            if variable not in self.domains:
+                raise LookupError("Every variable should have a domain assignet to it.")
+    
+    def add_constraint(self, constraint: Constraint[V, D]) -> None:
+        for variable in constraint.variables:
+            if variable not in self.variables:
+                raise LookupError("Variable in constraint not in CSP")
+            else:
+                self.constraints[variable].append(constraint)
+        
