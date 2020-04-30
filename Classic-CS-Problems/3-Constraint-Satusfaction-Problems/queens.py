@@ -22,9 +22,13 @@ class QueensConstraint(Constraint[int, int]):
         return True
 
 
-
 if __name__ == "__main__":
     columns: List[int] = [1, 2, 3, 4, 5, 6, 7, 8]
-    rows: Dict[int, List[int]] = {i: columns for i in range(8)}
+    rows: Dict[int, List[int]] = {i: columns for i in range(1, 9)}
     csp: CSP[int, int] = CSP(columns, rows)
-    
+    csp.add_constraint(QueensConstraint(columns))
+    solution: Optional[Dict[int, int]] = csp.backtracking_search()
+    if solution is None:
+        print("No solution found")
+    else:
+        print(solution)
