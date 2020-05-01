@@ -62,7 +62,6 @@ class Graph(Generic[V]):
         return desc
 
 
-# Dummy comment
 if __name__ == "__main__":
     # test basic Graph construction
     city_graph: Graph[str] = Graph(["Seattle", "San Francisco", "Los Angeles", 
