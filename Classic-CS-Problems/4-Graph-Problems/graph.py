@@ -61,6 +61,25 @@ class Graph(Generic[V]):
             desc += f"{self.vertex_at(i)} -> {self.neighbours_for_index(i)}\n"
         return desc
 
+# def bfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], List[T]]) -> Optional[Node[T]]:
+#     frontier: Queue[Node[T]] = Queue()
+#     frontier.push(Node(initial, None))
+
+#     explored: Set[T] = {initial}
+
+#     while not frontier.empty:
+#         current_node: Node[T] = frontier.pop()
+#         current_state: T = current_node.state
+
+#         if goal_test(current_state):
+#             return current_node
+#         for child in successors(current_state):
+#             if child in explored:
+#                 continue
+#             explored.add(child)
+#             frontier.push(Node(child, current_node))
+#     return None
+
 
 if __name__ == "__main__":
     # test basic Graph construction
@@ -95,3 +114,19 @@ if __name__ == "__main__":
     city_graph.add_edge_by_vertices("New York", "Philadelphia")
     city_graph.add_edge_by_vertices("Philadelphia", "Washington")
     print(city_graph)
+
+    import sys
+    sys.path.insert(0, '..')
+    import importlib
+    module = importlib.import_module('2-Search-Problems.generic_search')
+    bfs = module.bfs
+    Node = module.Node
+    node_to_path = module.node_to_path
+
+    bfs_result: Optional[Node[V]] = bfs("Boston", lambda x: x == "Miami", city_graph.neighbours_for_vertex)
+    if bfs_result is None:
+        print("No solution found using breadth-first search.")
+    else:
+        path: List[V] = node_to_path(bfs_result)
+        print("Path from Boston to Miami:")
+        print(path)
