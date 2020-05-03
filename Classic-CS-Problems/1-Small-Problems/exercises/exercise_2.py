@@ -20,8 +20,11 @@ class CompressedGene:
             step = key.step * 4 if key.step else 1
             return self.decompress()[start:stop:step]
         elif isinstance(key, int):
+            decompressed: str = self.decompress()
             key = (key * 4)
-            return self.decompress()[key:key+4]
+            if key < 0:
+                key = len(decompressed) + key
+            return decompressed[key:key+4]
 
     def _compress(self, gene: str) -> None:
         bit_string: int = 1  # start with sentinel
@@ -96,4 +99,5 @@ if __name__ == "__main__":
     compressed: CompressedGene = CompressedGene(sequence)
     print(compressed[0])
     print(compressed[-1])
+    print(compressed[-2])
     print(compressed[0:2])
