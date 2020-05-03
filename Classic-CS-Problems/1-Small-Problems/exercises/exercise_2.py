@@ -8,7 +8,8 @@ from sys import getsizeof
 
 class CompressedGene:
     def __init__(self, gene: str) -> None:
-        self._compress(gene)
+        self.bit_string = self._compress(gene)
+        print(getsizeof(self.bit_string))
 
     def __str__(self):
         return self.decompress()
@@ -39,13 +40,20 @@ class CompressedGene:
     #         else:
     #             raise ValueError("Invalid Nucleotide:{}".format(nucleotide))
     
+    def bytes_to_int(self, bytes_s: bytes) -> int:
+        result = 0
+        for b in bytes_s:
+            result = result * 256 + int(b)
+        return result
+
     def _compress(self, gene: str) -> None:
         gene_bytes: bytes = gene.encode("utf-8")
-        self.bit_string = int.from_bytes(gene_bytes, "big")
+        return self.bytes_to_int(gene_bytes)
+        # self.bit_string = int.from_bytes(gene_bytes, "big")
 
     def decompress(self) -> str:
-        temp: bytes = self.bit_string.to_bytes((self.bit_string.bit_length()+ 7) // 8, "big")
-        return temp.decode("utf-8")
+        temp: bytes = self.bit_string.to_bytes((self.bit_string.bit_length()+ 7) // 8, "little")
+        return temp.decode("utf-8")[::-1]
 
     # def _compress(self, gene: str) -> None:
     #     gene_bytes: bytes = gene.encode()
@@ -76,12 +84,12 @@ class CompressedGene:
 if __name__ == "__main__":
     # original: str = "TAGGGATTAACCGTTATATATATATAGCCATGGATCGATTATATAGGGATTAACCGTTATATATATATAGCCATGGATCGATTATA" * 100
     original: str = "TAGGGATTAACCGTTATATATATATAGCCATGGATCGATTATATAGGGATTAACCGTTATATATATATAGCCATGGATCGATTATA" * 100
+    # import pdb
+    # pdb.set_trace()
     print("original is {} bytes".format(getsizeof(original)))
     compressed: CompressedGene = CompressedGene(original)  # compress
     print("compressed is {} bytes".format(getsizeof(compressed.bit_string)))
-    print(compressed)  # decompress
     print("original and decompressed are the same: {}".format(original == compressed.decompress()))
 
     sequemce: str = "TAGGGATT"
     compressed: CompressedGene = CompressedGene(sequemce)
-    print(compressed[:])
