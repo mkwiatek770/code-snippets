@@ -85,10 +85,7 @@ class CompressedGene:
 
 
 if __name__ == "__main__":
-    # original: str = "TAGGGATTAACCGTTATATATATATAGCCATGGATCGATTATATAGGGATTAACCGTTATATATATATAGCCATGGATCGATTATA" * 100
     original: str = "TAGGGATTAACCGTTATATATATATAGCCATGGATCGATTATATAGGGATTAACCGTTATATATATATAGCCATGGATCGATTATA" * 100
-    # import pdb
-    # pdb.set_trace()
     print("original is {} bytes".format(getsizeof(original)))
     compressed: CompressedGene = CompressedGene(original)  # compress
     print("compressed is {} bytes".format(getsizeof(compressed.bit_string)))
