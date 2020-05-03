@@ -15,10 +15,9 @@ class CompressedGene:
 
     def __getitem__(self, key):
         if isinstance(key, slice):
-            start = key.start * 4 if key.start else None
-            stop = key.stop * 4 if key.stop else None
-            step = key.step * 4 if key.step else 1
-            return self.decompress()[start:stop:step]
+            decompressed: str = self.decompress()
+            parts = [decompressed[i:i+4] for i in range(0, len(decompressed), 4)]
+            return parts[key.start:key.stop:key.step]
         elif isinstance(key, int):
             decompressed: str = self.decompress()
             key = (key * 4)
@@ -101,3 +100,4 @@ if __name__ == "__main__":
     print(compressed[-1])
     print(compressed[-2])
     print(compressed[0:2])
+    print(compressed[-2:-1])
