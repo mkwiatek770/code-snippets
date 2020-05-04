@@ -22,8 +22,9 @@ class HanoiTower(Stack[int]):
         self.name = name
 
 def hanoi(begin: Stack[int], end: Stack[int], temp: Stack[int], n) -> None:
-    print(f"hanoi(begin={begin.name}), end={end.name}, temp={temp.name}, n={n})")
+    print(f"hanoi(begin={begin.name}, end={end.name}, temp={temp.name}, n={n})")
     if n == 1:
+        print(f"Move element from {begin.name} to {end.name}")
         end.push(begin.pop())
     else:
         hanoi(begin, temp, end, n - 1)
@@ -33,7 +34,7 @@ def hanoi(begin: Stack[int], end: Stack[int], temp: Stack[int], n) -> None:
 
 if __name__ == "__main__":
 
-    num_discs: int = 3
+    num_discs: int = 10
     tower_a: HanoiTower = HanoiTower('A')
     tower_b: HanoiTower = HanoiTower('B')
     tower_c: HanoiTower = HanoiTower('C')
