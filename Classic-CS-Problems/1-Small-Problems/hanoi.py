@@ -16,7 +16,13 @@ class Stack(Generic[T]):
         return repr(self._container)
 
 
+class HanoiTower(Stack[int]):
+    def __init__(self, name: str) -> None:
+        super().__init__()
+        self.name = name
+
 def hanoi(begin: Stack[int], end: Stack[int], temp: Stack[int], n) -> None:
+    print(f"hanoi(begin={begin.name}), end={end.name}, temp={temp.name}, n={n})")
     if n == 1:
         end.push(begin.pop())
     else:
@@ -28,9 +34,9 @@ def hanoi(begin: Stack[int], end: Stack[int], temp: Stack[int], n) -> None:
 if __name__ == "__main__":
 
     num_discs: int = 3
-    tower_a: Stack[int] = Stack()
-    tower_b: Stack[int] = Stack()
-    tower_c: Stack[int] = Stack()
+    tower_a: HanoiTower = HanoiTower('A')
+    tower_b: HanoiTower = HanoiTower('B')
+    tower_c: HanoiTower = HanoiTower('C')
     for i in range(1, num_discs + 1):
         tower_a.push(i)
 
