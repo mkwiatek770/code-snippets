@@ -1,10 +1,13 @@
-from typing import TypeVar, Generic, List
+from typing import TypeVar, Generic, List, Optional
 T = TypeVar("T")
 
 class Stack(Generic[T]):
     """LIFO Stack"""
-    def __init__(self) -> None:
-        self._container: List[T] = []
+    def __init__(self, initial: Optional[List[T]] = None) -> None:
+        if initial:
+            self._container = list(initial)
+        else:
+            self._container: List[T] = []
 
     def push(self, item: T) -> None:
         self._container.append(item)
