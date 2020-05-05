@@ -21,19 +21,34 @@ from typing import List
 from hanoi import HanoiTower
 
 
+
+def frame_steward(start: HanoiTower, end: HanoiTower, other_pegs: List[HanoiTower]):
+    
+    # For some k, 1 <= k < n  transfer top k disks to a single peg other than detination pegs, taking T(k, n) moves
+    temp_destination = other_pegs.pop()
+    k = len(other_pegs)
+    hanoi(start, temp_destination, other_pegs, k)
+
+    print(start)
+    print(temp_destination)
+
+
+        
+
 def hanoi(start: HanoiTower, end: HanoiTower, temp: List[HanoiTower], n: int):
     for tower in temp:
-        tower.pop(start.push())
+        tower.push(start.pop())
 
     for tower in temp[::-1]:
-        end.pop(tower.push())
+        end.push(tower.pop())
 
 
 h1 = HanoiTower('A', initial=[5, 4, 3, 2, 1])
-assert h1.pop() == 1
 h2 = HanoiTower('B')
 h3 = HanoiTower('C')
 h4 = HanoiTower('D')
 h5 = HanoiTower('E')
 h6 = HanoiTower('F')
 h7 = HanoiTower('G')
+
+frame_steward(h1, h7, [h2, h3, h4, h5, h6])
