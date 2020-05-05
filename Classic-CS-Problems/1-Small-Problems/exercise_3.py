@@ -53,7 +53,7 @@ def hanoi(start: HanoiTower, end: HanoiTower, temp: List[HanoiTower], n: int):
         end.push(temp[i].pop())
 
 
-h1 = HanoiTower('A', initial=[5, 4, 3, 2, 1])
+h1 = HanoiTower('A', initial=[8, 7, 6, 5, 4, 3, 2, 1])
 h2 = HanoiTower('B')
 h3 = HanoiTower('C')
 h4 = HanoiTower('D')
