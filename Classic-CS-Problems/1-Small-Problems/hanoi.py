@@ -20,8 +20,8 @@ class Stack(Generic[T]):
 
 
 class HanoiTower(Stack[int]):
-    def __init__(self, name: str) -> None:
-        super().__init__()
+    def __init__(self, name: str, initial: Optional[List[T]] = None) -> None:
+        super().__init__(initial)
         self.name = name
 
 def hanoi(begin: Stack[int], end: Stack[int], temp: Stack[int], n) -> None:
