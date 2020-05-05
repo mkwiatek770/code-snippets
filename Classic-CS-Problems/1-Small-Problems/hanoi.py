@@ -9,6 +9,9 @@ class Stack(Generic[T]):
         else:
             self._container: List[T] = []
 
+    def __len__(self):
+        return len(self._container)
+
     def push(self, item: T) -> None:
         self._container.append(item)
     
