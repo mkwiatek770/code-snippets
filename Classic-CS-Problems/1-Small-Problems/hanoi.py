@@ -1,10 +1,16 @@
-from typing import TypeVar, Generic, List
+from typing import TypeVar, Generic, List, Optional
 T = TypeVar("T")
 
 class Stack(Generic[T]):
     """LIFO Stack"""
-    def __init__(self) -> None:
-        self._container: List[T] = []
+    def __init__(self, initial: Optional[List[T]] = None) -> None:
+        if initial:
+            self._container = list(initial)
+        else:
+            self._container: List[T] = []
+
+    def __len__(self):
+        return len(self._container)
 
     def push(self, item: T) -> None:
         self._container.append(item)
@@ -17,8 +23,8 @@ class Stack(Generic[T]):
 
 
 class HanoiTower(Stack[int]):
-    def __init__(self, name: str) -> None:
-        super().__init__()
+    def __init__(self, name: str, initial: Optional[List[T]] = None) -> None:
+        super().__init__(initial)
         self.name = name
 
 def hanoi(begin: Stack[int], end: Stack[int], temp: Stack[int], n) -> None:
