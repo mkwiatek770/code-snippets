@@ -17,9 +17,23 @@ peg using only remaining r-1 pegs, taking T(n-k, r-1) moves.
 
 https://codereview.stackexchange.com/questions/42524/solving-the-reves-puzzle/42527
 """
-
-from hanoi import HanoiTower
 from typing import List
+from hanoi import HanoiTower
+
 
 def hanoi(start: HanoiTower, end: HanoiTower, temp: List[HanoiTower], n: int):
-    pass
+    for tower in temp:
+        tower.pop(start.push())
+
+    for tower in temp[::-1]:
+        end.pop(tower.push())
+
+
+h1 = HanoiTower('A', [5, 4, 3, 2, 1])
+assert h1.pop() == 1
+h2 = HanoiTower('B')
+h3 = HanoiTower('C')
+h4 = HanoiTower('D')
+h5 = HanoiTower('E')
+h6 = HanoiTower('F')
+h7 = HanoiTower('G')
