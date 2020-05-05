@@ -39,7 +39,11 @@ def frame_steward(start: HanoiTower, end: HanoiTower, other_pegs: List[HanoiTowe
     print(start)
     print(end)
 
-        
+    # Finally transfer the top k disks to the destination peg, taking T(k,r) moves
+    hanoi(temp_destination, end, other_pegs, k)
+    
+    print(start)
+    print(end)
 
 def hanoi(start: HanoiTower, end: HanoiTower, temp: List[HanoiTower], n: int):
     for i in range(n):
