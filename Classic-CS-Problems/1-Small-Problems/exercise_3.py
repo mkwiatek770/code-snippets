@@ -29,7 +29,7 @@ def hanoi(start: HanoiTower, end: HanoiTower, temp: List[HanoiTower], n: int):
         end.pop(tower.push())
 
 
-h1 = HanoiTower('A', [5, 4, 3, 2, 1])
+h1 = HanoiTower('A', initial=[5, 4, 3, 2, 1])
 assert h1.pop() == 1
 h2 = HanoiTower('B')
 h3 = HanoiTower('C')
