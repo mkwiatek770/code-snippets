@@ -15,19 +15,22 @@ def encrypt_image(image_path: str):
         return image, key
 
 
-def save_image(image_bytes: bytearray, file_name="encrypted.jpg"):
-    import pdb
-    pdb.set_trace()
+def save_image(image_bytes: bytearray, file_name="encrypted.jpeg"):
     with open(file_name, "wb") as image:
         image.write(bytes(image_bytes))
 
-def decrypt_image(key1: int, key2: int) -> bytes:
-    pass
+def decrypt_image(image: bytearray, key: int) -> bytes:
+    for index, value in enumerate(image):
+        image[index] = value^key
+    return image
+
 
 
 if __name__ == "__main__":
-    image_path = './image.jpg'
-    encrypted, key2 = encrypt_image(image_path)
+    image_path = './image.jpeg'
+    encrypted, key = encrypt_image(image_path)
     save_image(encrypted)
     
+    decrypted = decrypt_image(encrypted, key)
+    save_image(decrypted, "s.jpeg")
 
