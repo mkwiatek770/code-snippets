@@ -3,9 +3,9 @@ Add a counter to dfs(), bfs(), and astar() to see how many states each
 searches through for the same maze. Find the counts for 100 different mazes to
 get statistically significant results.
 """
-from typing import TypeVar, Callable, List, Optional, Set, Tuple
-from generic_search import Node, Queue, node_to_path, Stack
-from maze import Maze, MazeLocation
+from typing import TypeVar, Callable, List, Optional, Set, Tuple, Dict
+from generic_search import Node, Queue, node_to_path, Stack, PriorityQueue
+from maze import Maze, MazeLocation, manhattan_distance
 
 T = TypeVar('T')
 
@@ -57,12 +57,36 @@ def dfs_w_counter(initial: T, goal_test: Callable[[T], bool], successors: Callab
     return None, counter # went through everything and never found goal
 
 
+def astar_w_counter(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], List[T]], 
+           heuristic: Callable[[T], float]) -> Tuple[Optional[Node[T]], int]:
+    
+    counter = 0
+    frontier: PriorityQueue[Node[T]] = PriorityQueue()
+    frontier.push(Node(initial, None))
+
+    explored: Dict[T, float] = {initial: 0.0}
+
+    while not frontier.empty:
+        counter += 1
+        current_node: Node[T] = frontier.pop()
+        current_state: T = current_node.state
+        if goal_test(current_state):
+            return current_node, counter
+        
+        for child in successors(current_state):
+            new_cost: float = current_node.cost + 1
+            if child not in explored or explored[child] > new_cost:
+                explored[child] = new_cost
+                frontier.push(Node(child, current_node, new_cost, heuristic(child)))
+    return None, counter
+
+
 if __name__ == "__main__":
     maze: Maze = Maze()
 
     # Test DFS
     solution1, counter = dfs_w_counter(maze.start, maze.goal_test, maze.successors)
-    print(f"Counter: {counter}")
+    print(f"DFS Counter: {counter}")
     if solution1 is None:
         print("No solutions found using depth-first search.")
     else:
@@ -73,7 +97,7 @@ if __name__ == "__main__":
     
     # Test BFS
     solution2, counter = bfs_w_counter(maze.start, maze.goal_test, maze.successors)
-    print(f"Counter: {counter}")
+    print(f"BFS Counter: {counter}")
     if solution2 is None:
         print("No solution found using breadth-first search!")
     else:
@@ -81,3 +105,14 @@ if __name__ == "__main__":
         maze.mark(path2)
         print(maze)
         maze.clear(path2)
+    
+    # Test A*
+    distance: Callable[[MazeLocation], float] = manhattan_distance(maze.goal)
+    solution3, counter = astar_w_counter(maze.start, maze.goal_test, maze.successors, distance)
+    print(f"A* Counter: {counter}")
+    if solution3 is None:
+        print("No solution found using A*!")
+    else:
+        path3: List[MazeLocation] = node_to_path(solution3)
+        maze.mark(path3)
+        print(maze)
