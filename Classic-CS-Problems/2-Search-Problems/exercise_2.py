@@ -82,37 +82,52 @@ def astar_w_counter(initial: T, goal_test: Callable[[T], bool], successors: Call
 
 
 if __name__ == "__main__":
-    maze: Maze = Maze()
 
-    # Test DFS
-    solution1, counter = dfs_w_counter(maze.start, maze.goal_test, maze.successors)
-    print(f"DFS Counter: {counter}")
-    if solution1 is None:
-        print("No solutions found using depth-first search.")
-    else:
-        path1: List[MazeLocation] = node_to_path(solution1)
-        maze.mark(path1)
-        print(maze)
-        maze.clear(path1)
-    
-    # Test BFS
-    solution2, counter = bfs_w_counter(maze.start, maze.goal_test, maze.successors)
-    print(f"BFS Counter: {counter}")
-    if solution2 is None:
-        print("No solution found using breadth-first search!")
-    else:
-        path2: List[MazeLocation] = node_to_path(solution2)
-        maze.mark(path2)
-        print(maze)
-        maze.clear(path2)
-    
-    # Test A*
-    distance: Callable[[MazeLocation], float] = manhattan_distance(maze.goal)
-    solution3, counter = astar_w_counter(maze.start, maze.goal_test, maze.successors, distance)
-    print(f"A* Counter: {counter}")
-    if solution3 is None:
-        print("No solution found using A*!")
-    else:
-        path3: List[MazeLocation] = node_to_path(solution3)
-        maze.mark(path3)
-        print(maze)
+    DFS_COUNTER = 0
+    BFS_COUNTER = 0
+    ASTAR_COUNTER = 0
+
+    for _ in range(100):
+        maze: Maze = Maze()
+
+        # Test DFS
+        solution1, counter = dfs_w_counter(maze.start, maze.goal_test, maze.successors)
+        print(f"DFS Counter: {counter}")
+        if solution1 is None:
+            print("No solutions found using depth-first search.")
+        else:
+            path1: List[MazeLocation] = node_to_path(solution1)
+            maze.mark(path1)
+            print(maze)
+            maze.clear(path1)
+        
+        DFS_COUNTER += counter
+
+        # Test BFS
+        solution2, counter = bfs_w_counter(maze.start, maze.goal_test, maze.successors)
+        print(f"BFS Counter: {counter}")
+        if solution2 is None:
+            print("No solution found using breadth-first search!")
+        else:
+            path2: List[MazeLocation] = node_to_path(solution2)
+            maze.mark(path2)
+            print(maze)
+            maze.clear(path2)
+        BFS_COUNTER += counter
+
+        # Test A*
+        distance: Callable[[MazeLocation], float] = manhattan_distance(maze.goal)
+        solution3, counter = astar_w_counter(maze.start, maze.goal_test, maze.successors, distance)
+        print(f"A* Counter: {counter}")
+        if solution3 is None:
+            print("No solution found using A*!")
+        else:
+            path3: List[MazeLocation] = node_to_path(solution3)
+            maze.mark(path3)
+            print(maze)
+        ASTAR_COUNTER += counter
+
+    print("Average results after 100 iterations:")
+    print(f"BFS:  {BFS_COUNTER // 100} steps per maze")
+    print(f"DFS:  {DFS_COUNTER // 100} steps per maze")
+    print(f"A*:   {ASTAR_COUNTER // 100} steps per maze")
