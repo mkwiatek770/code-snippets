@@ -3,8 +3,9 @@ Add a counter to dfs(), bfs(), and astar() to see how many states each
 searches through for the same maze. Find the counts for 100 different mazes to
 get statistically significant results.
 """
-from typing import TypeVar, Callable, List, Optional
-from generic_search import Node, Queue
+from typing import TypeVar, Callable, List, Optional, Set, Tuple
+from generic_search import Node, Queue, node_to_path
+from maze import Maze, MazeLocation
 
 T = TypeVar('T')
 
@@ -30,3 +31,17 @@ def bfs_w_counter(initial: T, goal_test: Callable[[T], bool], successors: Callab
             frontier.push(Node(child, current_node))
     return None, counter
 
+
+if __name__ == "__main__":
+    maze: Maze = Maze()
+
+    # Test DFS
+    solution1, counter = bfs_w_counter(maze.start, maze.goal_test, maze.successors)
+    print(f"Counter: {counter}")
+    if solution1 is None:
+        print("No solutions found using depth-first search.")
+    else:
+        path1: List[MazeLocation] = node_to_path(solution1)
+        maze.mark(path1)
+        print(maze)
+        maze.clear(path1)
