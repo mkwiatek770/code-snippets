@@ -10,11 +10,12 @@ finding "hops" or distance out or "levels" away
 Goes Wide
 """
 from typing import TypeVar, Generic, Collection, Optional
+from dfs import Node
 
 T = TypeVar('T')
 
-class Queue(Generic[T]):
 
+class Queue(Generic[T]):
     def __init__(self, container: Collection[T] = None):
         if container:
             self._container = list(container)
@@ -31,6 +32,9 @@ class Queue(Generic[T]):
     def pop(self) -> Optional[T]:
         if not self.empty:
             return self._container.pop(0)
+
+
+
 
 if __name__ == "__main__":
     q = Queue([1, 2, 3, 4])

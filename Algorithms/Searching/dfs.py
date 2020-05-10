@@ -80,4 +80,4 @@ if __name__ == "__main__":
     E.adjacent = [C, D, H, F]
     F.adjacent = [G, C, E]
 
-    dfs(C)
+    dfs(A)
