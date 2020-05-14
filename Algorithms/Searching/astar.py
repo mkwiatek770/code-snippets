@@ -5,7 +5,7 @@ A* score = cost + heuristic
 """
 from __future__ import annotations
 from heapq import heappop, heappush
-from typing import TypeVar, Generic, Collection, Optional, Callable, List, Optional
+from typing import TypeVar, Generic, Collection, Optional, Callable, List
 
 T = TypeVar('T')
 
@@ -44,18 +44,19 @@ class Node(Generic[T]):
 
 def astar(initial: Node[T], goal_test: Callable[[T], bool], successors: Callable[[T], 
         List[T]], heuristic: Callable[[T], float]) -> Optional[Node[T]]:
+    # frontier is where we've yet to go
     frontier = PriorityQueue()
     frontier.push(initial)
-
+    # where we've been
     explored = {initial: 0.0}
-
+    # keep going until frontier is not empty
     while not frontier.empty:
         current_node = frontier.pop()
         current_state = current_node.state
 
         if goal_test(current_state):
             return current_node
-
+        # check where we can go next and haven't explored yet
         for child in successors(current_state):
             new_cost = current_node.cost + 1
             if child not in explored or explored[child] > new_cost:
