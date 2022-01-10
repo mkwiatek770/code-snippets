@@ -26,3 +26,15 @@ class Task:
 
     def __repr__(self):
         return '{}({!r})'.format(self.__class__.__name__, self.name)
+
+
+if __name__ == '__main__':
+    q = PriorityQueue()
+    q.push(Task('foo'), 1)
+    q.push(Task('bar'), 5)
+    q.push(Task('spam'), 4)
+    q.push(Task('grok'), 1)
+
+    # do tasks in priority order
+    while not q.is_empty:
+        print('Doing:', q.pop())
