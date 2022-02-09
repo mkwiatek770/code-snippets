@@ -1,5 +1,7 @@
 """
 Example from "Python Cookbook 3rd edition 1.5"
+
+Heap queue is a special tree structure in which each parent node is less than or equal to its child node.
 """
 import heapq
 
