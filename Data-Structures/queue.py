@@ -1,6 +1,7 @@
 """
 FIFO - First In First Out
 """
+from collections import deque
 
 class Node:
 
@@ -41,6 +42,16 @@ class Queue:
         if self.head is None:
             self.tail = None
         return value
+
+
+# custom deque
+class DoubleEndedQueue(deque):
+
+    def __lshift__(self, value):
+        self.append(value)
+    
+    def __rshift__(self, value):
+        self.appendleft(value)
 
 
 q = Queue()
